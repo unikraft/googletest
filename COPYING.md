@@ -1,7 +1,7 @@
 License
 =======
 
-Unikraft fxdiv wrappers
+Unikraft googletest wrapper
 -----------------------
 
 This repository contains wrapper code to build googletest with Unikraft.
