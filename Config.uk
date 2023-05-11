@@ -1,10 +1,14 @@
 menuconfig LIBGOOGLETEST
-    bool "Google Testing and Mocking Framework"
+    bool "googletest - Google's C++ testing and mocking framework"
     select LIBCXX
     default n
 
 if LIBGOOGLETEST
     config LIBGOOGLETEST_BUILD_MAIN
-    bool "Build googletest with main"
+    bool "Build the googletest main function"
     default n
+    help
+        Tests written for googletest may omit a main function, instead relying
+        on one provided in the googletest library itself. This option selects
+        whether to include the main function in the build.
 endif
