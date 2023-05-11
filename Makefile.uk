@@ -1,8 +1,10 @@
 #  libgoogletest Makefile.uk
 #
 #  Authors: Vlad-Andrei Badoiu <vlad_andrei.badoiu@stud.acs.upb.ro>
+#           Andrei Tatar <andrei@unikraft.io>
 #
 #  Copyright (c) 2019, Politehnica University of Bucharest. All rights reserved.
+#  Copyright (c) 2023, Unikraft GmbH and The Unikraft Authors.
 #
 #  Redistribution and use in source and binary forms, with or without
 #  modification, are permitted provided that the following conditions
@@ -38,31 +40,25 @@ $(eval $(call addlib_s,libgoogletest,$(CONFIG_LIBGOOGLETEST)))
 ################################################################################
 # Sources
 ################################################################################
-LIBGOOGLETEST_VERSION=1.8.1
-LIBGOOGLETEST_URL=https://github.com/google/googletest/archive/release-$(LIBGOOGLETEST_VERSION).zip
+LIBGOOGLETEST_VERSION=1.13.0
+LIBGOOGLETEST_URL=https://github.com/google/googletest/archive/refs/tags/v$(LIBGOOGLETEST_VERSION).tar.gz
 $(eval $(call fetch,libgoogletest,$(LIBGOOGLETEST_URL)))
 
 ################################################################################
 # Helpers
 ################################################################################
-LIBGOOGLETEST_SUBDIR=googletest-release-$(LIBGOOGLETEST_VERSION)
-LIBGOOGLETEST_SRC = $(LIBGOOGLETEST_ORIGIN)/$(LIBGOOGLETEST_SUBDIR)
+LIBGOOGLETEST_SRC = $(LIBGOOGLETEST_ORIGIN)/googletest-$(LIBGOOGLETEST_VERSION)
 
 ################################################################################
 # Library includes
 ################################################################################
-CINCLUDES-$(CONFIG_LIBGOOGLETEST) += -I$(LIBGOOGLETEST_SRC)/googletest/
-CINCLUDES-$(CONFIG_LIBGOOGLETEST) += -I$(LIBGOOGLETEST_SRC)/googletest/include
-
-CXXINCLUDES-$(CONFIG_LIBGOOGLETEST) += -I$(LIBGOOGLETEST_SRC)/googletest/
 CXXINCLUDES-$(CONFIG_LIBGOOGLETEST) += -I$(LIBGOOGLETEST_SRC)/googletest/include
+CXXINCLUDES-$(CONFIG_LIBGOOGLETEST) += -I$(LIBGOOGLETEST_SRC)/googletest/
 
 ################################################################################
 # Global flags
 ################################################################################
-CONFIG_FLAGS += -D GTEST_HAS_CXXABI_H_ -D GTEST_LANG_CXX11
-LIBGOOGLETEST_CFLAGS-y		+= $(CONFIG_FLAGS)
-LIBGOOGLETEST_CXXFLAGS-y	+= $(CONFIG_FLAGS)
+LIBGOOGLETEST_CXXFLAGS-y += -DGTEST_HAS_CXXABI_H_
 
 ################################################################################
 # Library sources
