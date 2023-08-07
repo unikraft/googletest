@@ -1,19 +1,12 @@
-googletest for Unikraft
-===================
+# GoogleTest for Unikraft
 
-This is the port of googletest to Unikraft as an external
-library. libcxx is required. This library should come at the end of
-the dependency list, e.g.,:
+This is the port of [GoogleTest](https://google.github.io/googletest/) to Unikraft.
 
-	...:$(UK_LIBS)/libunwind:$(UK_LIBS)/compiler-rt:$(UK_LIBS)/libcxxabi:
-        $(UK_LIBS)/libcxx:$(UK_LIBS)/newlib:$(UK_LIBS)/googletest:...
-					 
-This library has a config option called LIBGOOGLETEST_BUILD_MAIN that
-builds the gtest_main.cc file. This is because some libraries do not
-have any main function in their unit tests and expect googletest to
-provide it.
+Some libraries that use GoogleTest rely on it to also provide a boilerplate main function to run their tests.
+Providing this function by default might however conflict with the application's intended main.
+For this purpose the LIBGOOGLETEST_BUILD_MAIN config option controls whether GoogleTest provides a `main()` function.
 								 
-Please refer to the `README.md` as well as the documentation in the
-`doc/` subdirectory of the main unikraft repository for further
-information.
+GoogleTest being a C++ library, `libcxx` is required.
+`lib-googletest` should come at the end of the dependency list.
 
+Please refer to `README.md` in the main unikraft repository as well as the [Unikraft Homepage](https://unikraft.org/) for further information.
